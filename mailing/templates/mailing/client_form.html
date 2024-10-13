@@ -1,0 +1,33 @@
+{% extends 'mailing/base.html' %}
+{% load my_tags %}
+
+{% block content %}
+<div class="col-12">
+    <form class="row" method="post" enctype="multipart/form-data">
+        <div class="col-5">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+
+                        {% if object %}
+                        <h3>Изменить клиента</h3>
+                        {% else %}
+                        <h3>Добавить клиента</h3>
+                        {% endif %}
+
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                </div>
+            </div>
+        </div>
+        <p>
+            <button type="submit" class="btn btn-success">Сохранить</button>
+            <button><a href="{% url 'mailing:client_list' %}" class="btn btn-warning">Отмена</a></button>
+        </p>
+    </form>
+</div>
+<br>
+{% endblock %}

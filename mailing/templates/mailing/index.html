@@ -1,0 +1,20 @@
+{% extends 'mailing/base.html' %}
+{% block content %}
+{% load my_tags %}
+
+<title>Главная</title>
+
+<ul class="nav col-12 col-md-left  justify-content-left ">
+    <li><a class="nav-link px-2">Всего рассылок: {{ mailings_count }}</a></li>
+    <li><a class="nav-link px-4">Активных рассылок: {{ mailings_is_active_count }}</a></li>
+    <li><a class="nav-link px-3">Уникальных клиентов в базе: {{ unique_clients_count }}</a></li>
+
+</ul>
+
+<main role="main" class="inner cover">
+    <h2 class="cover-heading">Главная</h2>
+</main>
+<br>
+{% include 'blogs/blog_include.html' %}
+
+{% endblock %}

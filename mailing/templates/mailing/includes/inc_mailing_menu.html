@@ -1,0 +1,54 @@
+{% load my_tags %}
+
+<header data-bs-theme="dark">
+
+    <div class="container">
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3  border-bottom">
+            <div class="col-md-3 mb-md-0">
+                <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+                    <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap">
+                        <use xlink:href="#bootstrap"/>
+                    </svg>
+                </a>
+            </div>
+            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                {% manager_groups as manager_group %}
+                {% user_groups as user_group %}
+
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'mailing:index' %}" class="nav-link px-2">Главная</a></li>
+                <li><a href="{% url 'mailing:mailing_list' %}" class="nav-link px-2">Рассылки</a></li>
+                <li><a href="{% url 'mailing:mailing_log_list' %}" class="nav-link px-2">Логи рассылок</a></li>
+                <li><a href="{% url 'blogs:list' %}" class="nav-link px-2">Блоги</a></li>
+
+                {% if user.groups.all.0 == user_group %}
+                <li><a href="{% url 'mailing:client_list' %}" class="nav-link px-2">Клиенты</a></li>
+                {% endif %}
+
+                {% if user.groups.all.0 == manager_group %}
+                <li><a href="{% url 'users:users_list' %}" class="nav-link px-2">Пользователи</a></li>
+                {% endif %}
+
+                <li><a href="{% url 'users:profile' %}" class="nav-link px-2"> профиль:{{ user }}</a></li>
+                <li><a href="{% url 'users:logout' %}" class="nav-link px-2">Выйти</a></li>
+                {% else %}
+                <li><a href="{% url 'users:login' %}" class="nav-link px-2">Войти</a></li>
+                <li><a href="{% url 'users:register' %}" class="nav-link px-2">Регистрация</a></li>
+                {% endif %}
+            </ul>
+        </header>
+    </div>
+
+    <div class="container">
+        <header class="d-flex flex-wrap align-items-left justify-content-left  mb-4 border-bottom">
+            <div class="col-md-3 mb-1 ">
+                <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+                    <svg class="bi" width="40" height="10" role="img" aria-label="Bootstrap">
+                        <use xlink:href="#bootstrap"/>
+                    </svg>
+                </a>
+            </div>
+        </header>
+    </div>
+
+</header>

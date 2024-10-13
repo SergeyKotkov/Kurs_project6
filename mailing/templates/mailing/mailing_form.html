@@ -1,0 +1,64 @@
+{% extends 'mailing/base.html' %}
+{% load my_tags %}
+
+{% block content %}
+<div class="col-12">
+    <form class="row" method="post" enctype="multipart/form-data">
+        <div class="col-5">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        {% if object %}
+                        <h3>Изменить рассылку</h3>
+                        {% else %}
+                        <h3>Добавить рассылку</h3>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% csrf_token %}
+                    {% manager_groups as manager_group %}
+                    {% if user.groups.all.0 == manager_group %}
+                    <div class="mb-3">
+                        {{ form.is_active.label_tag }}{{ form.is_active }}
+                    </div>
+                    {% endif %}
+                    <div class="mb-3">
+                        {{ form.name.label_tag }}{{ form.name }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.body.label_tag }}{{ form.body }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.status.label_tag }}{{ form.status }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.time_start.label_tag }}{{ form.time_start }}{{ form.time_start.help_text }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.time_end.label_tag }}{{ form.time_end }}{{ form.time_end.help_text }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.periodicity.label_tag }}{{ form.periodicity }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.day.label_tag }}{{ form.day }}{{ form.day.help_text }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.day_week.label_tag }}{{ form.day_week }}{{ form.day_week.help_text }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.clients.label_tag }}{{ form.clients }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p>
+            <button type="submit" class="btn btn-success">Сохранить</button>
+            <button><a href="{% url 'mailing:mailing_list' %}" class="btn btn-warning">Отмена</a></button>
+        </p>
+    </form>
+</div>
+<br>
+
+{% endblock %}

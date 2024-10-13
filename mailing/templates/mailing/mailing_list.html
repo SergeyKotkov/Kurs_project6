@@ -1,0 +1,54 @@
+{% extends 'mailing/base.html' %}
+{% block content %}
+{% load my_tags %}
+
+<title>Рассылки</title>
+
+<main role="main" class="inner cover">
+    <h2 class="cover-heading">Список рассылок</h2>
+
+    {% if perms.mailing.add_mailing %}
+    <h3 class="card-title"><a class="btn btn-outline-primary" href="{% url 'mailing:mailing_create' %}">Создать новую
+        рассылку</a>
+    </h3>
+    {% endif %}
+    <br>
+</main>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    {% for object in objects_list %}
+    {% manager_groups as manager_group %}
+    {% if user == object.user or user.groups.all.0 == manager_group %}
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">{{ object.name }}</h3>
+                {% if object.is_active == True %}
+                <div class=" mb-2"> Активна </div>
+                {% else %}
+                <div class=" mb-2"> Неактивна </div>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{ object.body|truncatechars:100 }}</p>
+            </div>
+            <div class="card-footer">
+                <div class=" mb-2"> Автор: {{ object.user }}</div>
+                <a class="mb-4"></a>
+                <a class="btn btn-outline-primary " href="{% url 'mailing:mailing_detail' object.pk %}">Подробнее</a>
+                {% if user == object.user or user.groups.all.0 == manager_group %}
+                <a class="btn btn-outline-primary "
+                   href="{% url 'mailing:mailing_update' object.pk %}">Редактировать</a>
+                {% endif %}
+                {% if user == object.user %}
+                <a class="btn btn-outline-primary " href="{% url 'mailing:mailing_delete' object.pk %}">Удалить</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    <br>
+
+</div>
+{% endblock %}

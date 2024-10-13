@@ -1,0 +1,42 @@
+{% extends 'mailing/base.html' %}
+{% block content %}
+{% load my_tags %}
+
+
+<title>Блоги</title>
+<h2>Блоги</h2>
+<br>
+<form>
+    {% if perms.mailing.add_mailing %}
+    <a class="btn btn-outline-primary" href="{% url 'blogs:create' %}">Создать новый блог</a>
+    {% endif %}
+</form>
+<br>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    {% for object in objects_list %}
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">{{ object.title }}</h3>
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{ object.body|truncatechars:100 }}</p>
+            </div>
+            <div class="card-footer">
+                <div class=" mb-2"> Дата публикации: {{ object.date_of_creation }}</div>
+                <div class=" mb-2"> Просмотры: {{ object.views_count }}</div>
+                <div class=" mb-2"> Автор: {{ object.user }}</div>
+                <a class="mb-4"></a>
+                <a class="btn btn-outline-primary " href="{% url 'blogs:view' object.pk %}">Читать</a>
+                {% if user == object.user %}
+                <a class="btn btn-outline-primary " href="{% url 'blogs:edit' object.pk %}">Редактировать</a>
+                <a class="btn btn-outline-primary " href="{% url 'blogs:delete' object.pk %}">Удалить</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <br>
+    {% endfor%}
+</div>
+
+{% endblock %}
