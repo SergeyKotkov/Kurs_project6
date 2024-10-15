@@ -35,7 +35,7 @@ def mail_send(mail, client):
     return mail_send_
 
 
-def mail_status_chenge():
+def mail_status_change():
     """меняет статус рассылки 'запущена' на 'создана' после времени окончания рассылки"""
     mailing = Mailing.objects.filter(is_active=True)
     mailinglog = MailingLog.objects.all()

@@ -1,7 +1,7 @@
 from datetime import datetime
 from django.core.management import BaseCommand
 from mailing.models import Mailing, MailingLog
-from mailing.servises import mail_send
+from mailing.services import mail_send
 
 
 class Command(BaseCommand):

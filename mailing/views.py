@@ -9,7 +9,7 @@ from mailing.models import Mailing, Client, MailingLog
 from apscheduler.schedulers.background import BackgroundScheduler
 from django.core.management import call_command
 
-from mailing.servises import mail_status_chenge
+from mailing.services import mail_status_change
 
 
 def mailing_start():
@@ -18,7 +18,7 @@ def mailing_start():
 
 scheduler = BackgroundScheduler()
 scheduler.add_job(mailing_start, 'interval', seconds=600)
-scheduler.add_job(mail_status_chenge, 'interval', seconds=3600)
+scheduler.add_job(mail_status_change, 'interval', seconds=3600)
 scheduler.start()
 
 

@@ -1,7 +1,7 @@
 from datetime import datetime
 from django.core.management import BaseCommand
 from mailing.models import Mailing, MailingLog
-from mailing.servises import check_periodicity_mail_start, mail_send
+from mailing.services import check_periodicity_mail_start, mail_send
 
 
 class Command(BaseCommand):
