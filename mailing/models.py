@@ -16,6 +16,10 @@ class Client(models.Model):
     class Meta:
         verbose_name = 'Клиент'
         verbose_name_plural = 'Клиенты'
+        permissions = [
+            ('view_all_clients', 'Может просматривать всех клиентов'),
+            ('block_client', 'Может блокировать клиентов'),
+        ]
 
 
 class Mailing(models.Model):
@@ -64,6 +68,10 @@ class Mailing(models.Model):
         verbose_name = 'письмо'
         verbose_name_plural = 'письма'
         ordering = ['name', ]
+        permissions = [
+            ('view_all_mailings', 'Может просматривать все рассылки'),
+            ('disable_mailing', 'Может отключать рассылки'),
+        ]
 
 
 class MailingLog(models.Model):
